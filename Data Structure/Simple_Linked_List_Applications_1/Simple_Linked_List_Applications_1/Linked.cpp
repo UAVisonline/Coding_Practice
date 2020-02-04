@@ -71,6 +71,46 @@ public:
 			tmp->next = cardnode;
 		}
 	}
+	void DeleteNameCardFirst()
+	{
+		if (head == NULL)
+		{
+			std::cout << "empty list";
+		}
+		else
+		{
+			NameCardNode* tmp = head;
+			head = head->next;
+			delete tmp;
+		}
+	}
+	void DeleteNameCardLast()
+	{
+		if (head == NULL)
+		{
+			std::cout << "empty list";
+		}
+		else if (head->next == NULL)
+		{
+			head = NULL;
+		}
+		else
+		{
+			NameCardNode* tmp = head;
+			NameCardNode* pre = head;
+			while (tmp->next != NULL)
+			{
+				pre = tmp;
+				tmp = tmp->next;
+				if (tmp->next == NULL)
+				{
+					pre->next = NULL;
+					delete tmp;
+					break;
+				}
+			}
+		}
+	}
 	void NameCardSearch(std::string find_name)
 	{
 		NameCardNode* tmp = head;
@@ -134,14 +174,14 @@ int main()
 		{
 			list.NameCardPrint();
 		}
-		/*
-		else if(command == "delete")
+		else if(command == "delete_first")
 		{
-			std::string name;
-			std::cin >> name;
+			list.DeleteNameCardFirst();
 		}
-		*/
-		
+		else if (command == "delete_last")
+		{
+			list.DeleteNameCardLast();
+		}
 		std::cin >> command;
 	}
 	return 0;
