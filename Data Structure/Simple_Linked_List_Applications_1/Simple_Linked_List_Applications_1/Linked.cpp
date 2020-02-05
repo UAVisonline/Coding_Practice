@@ -53,6 +53,7 @@ public:
 			cardnode->next = head;
 			head = cardnode;
 		}
+		std::cout << "insert card : " + name + "  " + number << std::endl;
 	}
 	void InsertNameCardLast(std::string name, std::string number)
 	{
@@ -70,12 +71,13 @@ public:
 			}
 			tmp->next = cardnode;
 		}
+		std::cout << "insert card : " + name + "  " + number << std::endl;
 	}
 	void DeleteNameCardFirst()
 	{
 		if (head == NULL)
 		{
-			std::cout << "empty list";
+			std::cout << "empty list" << std::endl;
 		}
 		else
 		{
@@ -88,7 +90,7 @@ public:
 	{
 		if (head == NULL)
 		{
-			std::cout << "empty list";
+			std::cout << "empty list" << std::endl;
 		}
 		else if (head->next == NULL)
 		{
@@ -107,6 +109,68 @@ public:
 					pre->next = NULL;
 					delete tmp;
 					break;
+				}
+			}
+		}
+	}
+	void DeleteNameCardSearch(std::string name)
+	{
+		if (head == NULL)
+		{
+			std::cout << "empty list";
+		}
+		else if (head->next == NULL)
+		{
+			if (head->name == name)
+			{
+				head = NULL;
+				std::cout << "delete card : " + name << std::endl;
+				return;
+			}
+			else
+			{
+				std::cout << "Can not found result" << std::endl;
+			}
+		}
+		else
+		{
+			NameCardNode* tmp = head;
+			NameCardNode* pre = head;
+			while (tmp->next != NULL)
+			{
+				if (tmp->name == name)
+				{
+					if (tmp == head)
+					{
+						head = head->next;
+						delete tmp;
+					}
+					else
+					{
+						pre->next = tmp->next;
+						delete tmp;
+					}
+					std::cout << "delete card : " + name << std::endl;
+					return;
+				}
+				else
+				{
+					pre = tmp;
+					tmp = tmp->next;
+					if (tmp->next == NULL)
+					{
+						if (tmp->name == name)
+						{
+							pre->next = NULL;
+							delete tmp;
+							std::cout << "delete card : " + name << std::endl;
+							return;
+						}
+						else
+						{
+							std::cout << "Can not found result" << std::endl;
+						}
+					}
 				}
 			}
 		}
@@ -181,6 +245,13 @@ int main()
 		else if (command == "delete_last")
 		{
 			list.DeleteNameCardLast();
+		}
+		else if (command == "delete_search")
+		{
+			std::string name;
+			std::cin >> name;
+			list.DeleteNameCardSearch(name);
+			
 		}
 		std::cin >> command;
 	}
