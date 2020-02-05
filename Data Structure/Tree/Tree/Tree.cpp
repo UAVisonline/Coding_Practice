@@ -1,143 +1,43 @@
 #include "Tree.h"
 #include <iostream>
 
-using namespace std;
-
-Node::Node(int _data)
+Node::Node(std::string input_name)
 {
-	data = _data;
-	//parent = NULL;
-	left_child = NULL;
-	right_child = NULL;
+	name = input_name;
+	parent = NULL;
 }
 
-int Node::get_data()
+Node::Node(std::string input_name, Node* _parent)
 {
-	return data;
+	name = input_name;
+	parent = _parent;
 }
 
-void Node::set_left_child(Node* node)
+bool Node::isExternal()
 {
-	left_child = node;
-}
-
-void Node::set_right_child(Node* node)
-{
-	right_child = node;
-}
-
-/*bool Node::isRoot()
-{
-	return parent == NULL;
-}*/
-
-/*bool Node::isExternal()
-{
-	return left_child == NULL && right_child == NULL;
-}*/
-
-/*Node* Node::get_parent()
-{
-	Node* node = this->parent;
-	return node;
-}*/
-
-Node* Node::get_left_child()
-{
-	Node* node = this->left_child;
-	return node;
-}
-
-Node* Node::get_right_child()
-{
-	Node* node = this->right_child;
-	return node;
-}
-
-Tree::Tree()
-{
-	root = NULL;
-	size = 0;
-}
-
-Tree::Tree(int data)
-{
-	Node* node = new Node(data);
-	root = node;
-	size = 1;
-}
-
-bool Tree::Insert(int data)
-{
-	return Insert(data, root);
-}
-
-bool Tree::Search(int search_data)
-{
-	return Search(search_data,root);
-}
-
-bool Tree::Delete(int search_data)
-{
-	return Delete(search_data,root);
-}
-
-bool Tree::Insert(int data, Node* current)
-{
-	if (current == NULL)
+	if (this->node_children.size() == 0)
 	{
-		Node* node = new Node(data);
-		current = node;
-		size++;
 		return true;
 	}
 	else
 	{
-		if (current->get_data() < data)
-		{
-			return Insert(data, current->get_right_child());
-		}
-		else if (current->get_data() > data)
-		{
-			return Insert(data, current->get_left_child());
-		}
-		else if (current->get_data() == data)
-		{
-			cout << "data duplicate" << endl;
-			return false;
-		}
+		return false;
 	}
 }
 
-void Tree::pre_order(Node* node)
+bool Node::isRoot()
 {
-	if (node != NULL)
+	if (this->parent == NULL)
 	{
-		cout << node->get_data();
-		pre_order(node->get_left_child);
-		pre_order(node->get_right_child);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
-void Tree::post_order(Node* node)
+Node* Node::return_self()
 {
-	if (node != NULL)
-	{
-		
-		post_order(node->get_left_child);
-		post_order(node->get_right_child);
-		cout << node->get_data();
-	}
+	return this;
 }
-
-void Tree::in_order(Node* node)
-{
-	if (node != NULL)
-	{
-		in_order(node->get_left_child);
-		cout << node->get_data();
-		in_order(node->get_right_child);
-	}
-}
-
-
