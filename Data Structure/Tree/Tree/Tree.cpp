@@ -41,3 +41,16 @@ Node* Node::return_self()
 {
 	return this;
 }
+
+void Tree::InsertNode(Node* node)
+{
+	if (this->root == NULL)
+	{
+		root = node;
+	}
+	else if (this->root != NULL)
+	{
+		node->parent = root;
+		root->node_children.push_back(node);
+	}
+}

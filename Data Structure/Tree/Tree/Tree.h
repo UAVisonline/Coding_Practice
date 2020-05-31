@@ -9,7 +9,7 @@ class Node
 private:
 	std::string name;
 	Node* parent;
-	std::vector<Node> node_children;
+	std::vector<Node*> node_children;
 	friend class Tree;
 public:
 	Node(std::string input_name);
@@ -26,6 +26,7 @@ private:
 	Node* root = NULL;
 public :
 	Tree(Node* _root);
+	void InsertNode(Node* node);
 };
 
 
